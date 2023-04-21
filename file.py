@@ -9,17 +9,32 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import r2_score
 
 # Load the dataset
-@st.cache
-def load_data():
-    data = pd.read_csv("path_to_your_dataset.csv") 
-    return data
+# @st.cache
+# def load_data():
+#     data = pd.read_csv("path_to_your_dataset.csv") 
+#     return data
 
-data = load_data()
+# data = load_data()
+
+# Create a random dataset
+n_samples = 10
+n_features = 5
+X = np.random.randn(n_samples, n_features)
+y = np.sum(X, axis=1) + np.random.randn(n_samples)
+
+# Convert to a pandas dataframe
+data = pd.DataFrame(np.column_stack([X, y]), columns=[f"feature_{i}" for i in range(n_features)] + ["target"])
+
+# Create a streamlit app
+st.title("Linear Regression")
+st.write(
+    "Take any dataset as input and specify the target column. Display a visual representation of the linear regression line with selectable features from a dropdown menu. Implement MLP for regression (can have features as input, optional). Provide dropdown menus for various data normalization techniques and weight initialization methods for MLP. Evaluate the performance of different normalization techniques by comparing their scores."
+)
 
 # Specify the target column
 target_col = st.sidebar.selectbox("Select target column", data.columns)
 
-# Choose features from a dropdown menu
+# Choose features from a dropdown menu 
 features = st.sidebar.multiselect("Select features", data.columns.drop(target_col))
 
 # Create a linear regression model
@@ -45,16 +60,18 @@ if normalization == "StandardScaler":
     scaler = StandardScaler()
 elif normalization == "MinMaxScaler":
     scaler = MinMaxScaler()
-elif normalization == "RobustScaler":
-    scaler = RobustScaler()
 else:
     scaler = None
 
-weight_init = st.sidebar.selectbox("Select weight initialization method", ["Random", "Normal", "Glorot Uniform", "Glorot Normal"])
+weight_init = st.sidebar.selectbox("Select weight initialization method", ["Random", "Normal", "He Uniform", "He Normal", "Glorot Uniform", "Glorot Normal"])
 if weight_init == "Random":
     mlp.set_params(random_state=0)
 elif weight_init == "Normal":
     mlp.set_params(random_state=0, initialization="normal")
+elif weight_init == "He Uniform":
+    mlp.set_params(random_state=0, initialization="he_uniform")
+elif weight_init == "He Normal":
+    mlp.set_params(random_state=0, initialization="he_normal")
 elif weight_init == "Glorot Uniform":
     mlp.set_params(random_state=0, initialization="glorot_uniform")
 elif weight_init == "Glorot Normal":
