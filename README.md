@@ -11,6 +11,8 @@ Take any dataset as input and specify the target column. Display a visual repres
 ### Hosted 
 - To use through the hosted website go to the following URL: 
 
+    [Link to Streamlit App](https://saatvikraoiitgn-yeeshu-saatvik-assignment3-streamlit-app-ycq22a.streamlit.app) 
+
 
 ## Customizations 
 - You can input a csv file for data, just uncomment the code. Also, you can take random data by giving input of the number of samples and features. 
