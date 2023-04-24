@@ -45,7 +45,9 @@ st.sidebar.write("Linear regression")
 target_col = st.sidebar.selectbox('Select the target column', options=list(df.columns)) 
 
 # Select one of the features for the linear regression line
-lr_features = st.sidebar.multiselect('Select a feature for the linear regression line', options=list(df.columns))
+lr_features = st.sidebar.selectbox('Select a feature for the linear regression line', options=list(df.columns))
+# convert lr_features to a list
+lr_features = [lr_features] 
 
 # Plot the linear regression line
 if lr_features:
@@ -79,7 +81,8 @@ st.sidebar.write("MLP Regression")
 st.write("**MLP regression:**")
 
 # Select the features for the MLP regression
-mlp_features = st.sidebar.multiselect('Select features for MLP regression', options=list(df.columns))
+mlp_features = st.sidebar.selectbox('Select features for MLP regression', options=list(df.columns))
+mlp_features = [mlp_features]
 
 # Specify the MLP parameters
 mlp_hidden_layer_sizes = st.sidebar.slider('Hidden layer sizes', min_value=1, max_value=100, value=(10, 10))
