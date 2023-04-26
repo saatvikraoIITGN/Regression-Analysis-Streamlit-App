@@ -95,7 +95,7 @@ st.sidebar.write("---")
 normalization = st.sidebar.selectbox('Select data normalization technique', options=['None', 'StandardScaler', 'MinMaxScaler', 'RobustScaler'])
 
 # Select the weight initialization method
-weight_init = st.sidebar.selectbox('Select weight initialization method',options=['Random', 'Glorot', 'He'])
+weight_init = st.sidebar.selectbox('Select weight initialization method',options=['Random', 'He Uniform', 'Glorot Uniform'])
 
 # Preprocess the data
 X = df[mlp_features].values
@@ -118,10 +118,10 @@ elif normalization == 'RobustScaler':
 # Initialize the MLP model
 if weight_init == 'Random':
     mlp = MLPRegressor(hidden_layer_sizes=mlp_hidden_layer_sizes,activation=mlp_activation,max_iter=mlp_max_iter,random_state=42)
-elif weight_init == 'Glorot':
-    mlp = MLPRegressor(hidden_layer_sizes=mlp_hidden_layer_sizes,activation=mlp_activation,max_iter=mlp_max_iter,random_state=42,solver='adam')
 elif weight_init == 'He':
-    mlp = MLPRegressor(hidden_layer_sizes=mlp_hidden_layer_sizes,activation=mlp_activation,max_iter=mlp_max_iter,random_state=42,solver='adam')
+    mlp = MLPRegressor(hidden_layer_sizes=mlp_hidden_layer_sizes,activation=mlp_activation,max_iter=mlp_max_iter,random_state=42,solver='sgd') 
+elif weight_init == 'Glorot':
+    mlp = MLPRegressor(hidden_layer_sizes=mlp_hidden_layer_sizes,activation=mlp_activation,max_iter=mlp_max_iter,random_state=42,solver='lbfgs')
 
 # Fit the MLP model and make predictions
 mlp.fit(X_train, y_train)
@@ -130,7 +130,7 @@ y_pred = mlp.predict(X_test)
 fig, ax = plt.subplots() 
 ax.scatter(X_train, y_train, label="Data")
 ax.set_xlabel('X') 
-ax.set_ylabel('Y')
+ax.set_ylabel('Y') 
 ax.set_ylim(-10, 10) 
 xlim = ax.get_xlim()
 ylim = ax.get_ylim()
