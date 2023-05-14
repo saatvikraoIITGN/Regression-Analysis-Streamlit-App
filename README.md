@@ -1,5 +1,10 @@
 # Regression Analysis App 
 
+## Collaborators 
+Saatvik Rao 
+
+R Yesshu Dhurandhar 
+
 ## Project Goal  
 Take any dataset as input and specify the target column. Display a visual representation of the linear regression line with selectable features from a dropdown menu. Implement MLP for regression (can have features as input, optional). Provide dropdown menus for various data normalization techniques and weight initialization methods for MLP. Evaluate the performance of different normalization techniques by comparing their scores. 
 
